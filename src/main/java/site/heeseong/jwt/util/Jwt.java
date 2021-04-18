@@ -1,7 +1,6 @@
 package site.heeseong.jwt.util;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -36,7 +35,6 @@ public class Jwt {
         //1000 * 60 * 60 * 2 = 2시
         int expireTime = 1000 * 60;
 
-        //토
         Date expireDate = new Date(); // 토큰 만료 시간
         expireDate.setTime(expireDate.getTime() + expireTime);
 
@@ -61,13 +59,12 @@ public class Jwt {
     }
 
     static public Map<String, Object> verification(String jwt) throws Exception {
-        Map<String, Object> claimsData = new HashMap<>();
 
         Claims claims = Jwts.parser()
                 .setSigningKey(secretKey.getBytes("UTF-8")) // Set Key
                 .parseClaimsJws(jwt) // 파싱 및 검증
                 .getBody();
-        claimsData = claims;
+        Map<String, Object> claimsData = claims;
 
         System.out.println(claimsData);
         System.out.println(claimsData.get("sub"));
