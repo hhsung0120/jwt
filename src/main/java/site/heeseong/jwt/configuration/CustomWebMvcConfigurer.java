@@ -13,6 +13,7 @@ public class CustomWebMvcConfigurer extends WebMvcConfigurationSupport {
 	protected void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new TokenCheckInterceptor())
 				.addPathPatterns("/**")
+				.excludePathPatterns("/invalidToken")
 				;
 	}
 }

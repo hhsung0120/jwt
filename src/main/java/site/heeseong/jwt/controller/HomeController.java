@@ -1,30 +1,32 @@
 package site.heeseong.jwt.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import site.heeseong.jwt.service.TokenService;
+import site.heeseong.jwt.util.Jwt;
 
 @Controller
 @RestController
 public class HomeController {
 
-    private final TokenService tokenService;
-    private HomeController (TokenService tokenService){
-        this.tokenService = tokenService;
-    }
-
     @GetMapping("/index")
     public String home(){
-        return tokenService.testToken();
+        return Jwt.testToken();
     }
 
-    @GetMapping("/token")
+    @PostMapping("/token")
     public String verificationJwt(@RequestParam(required = false, defaultValue = "") String jwt){
-        tokenService.verificationJwt(jwt);
-        return "유효";
+        try{
+            return "vaild";
+        }catch (Exception e){
+            return e.getMessage();
+        }
+    }
+
+    @GetMapping("/invalidToken")
+    public String invalidToken(){
+        return "invalidToken";
     }
 }

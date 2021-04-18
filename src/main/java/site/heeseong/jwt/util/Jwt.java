@@ -1,23 +1,23 @@
-package site.heeseong.jwt.service;
+package site.heeseong.jwt.util;
 
-import org.springframework.stereotype.Service;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
-public class TokenService {
+public class Jwt {
 
-    final String secretKey = "token";
+    final static String secretKey = "token";
 
-    public String testToken() {
-        String token = createToken();
-        System.out.println(token);
-        return token;
+    static public String testToken() {
+        return createToken();
     }
 
-    public String createToken(){
+    static public String createToken(){
         //토큰 구조
         //header.payload.signature
 
@@ -28,7 +28,7 @@ public class TokenService {
 
         //정
         Map<String, Object> payload = new HashMap<>();
-        payload.put("data", this.dummyData());
+        payload.put("data", dummyData());
 
         //토큰 유효 시간 2시간
         //1000 * 60 = 1분
@@ -52,7 +52,7 @@ public class TokenService {
         return jwt;
     }
 
-    private Map<String, String> dummyData(){
+    static private Map<String, String> dummyData(){
         Map<String, String> dummyData = new HashMap<>();
         dummyData.put("userId","hhsung0120");
         dummyData.put("userName","한희성");
@@ -60,27 +60,17 @@ public class TokenService {
         return dummyData;
     }
 
-    public Map<String, Object> verificationJwt(String jwt) {
+    static public Map<String, Object> verification(String jwt) throws Exception {
         Map<String, Object> claimsData = new HashMap<>();
 
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(secretKey.getBytes("UTF-8")) // Set Key
-                    .parseClaimsJws(jwt) // 파싱 및 검증
-                    .getBody();
-            claimsData = claims;
-
-        } catch (ExpiredJwtException e) {
-            // 토큰이 만료
-            e.printStackTrace();
-        } catch (Exception e) {
-            // 그외 에러
-            e.printStackTrace();
-        }
+        Claims claims = Jwts.parser()
+                .setSigningKey(secretKey.getBytes("UTF-8")) // Set Key
+                .parseClaimsJws(jwt) // 파싱 및 검증
+                .getBody();
+        claimsData = claims;
 
         System.out.println(claimsData);
         System.out.println(claimsData.get("sub"));
-        System.out.println(claimsData.get("data"));
         System.out.println(claimsData.get("data"));
         Map<String, Object> data = (Map<String,Object>)claimsData.get("data");
         System.out.println(data.get("userName"));
