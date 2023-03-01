@@ -12,21 +12,21 @@ import site.heeseong.jwt.util.Jwt;
 public class HomeController {
 
     @GetMapping("/index")
-    public String home(){
+    public String home() {
         return Jwt.testToken();
     }
 
     @PostMapping("/token")
-    public String verificationJwt(@RequestParam(required = false, defaultValue = "") String jwt){
-        try{
+    public String verificationJwt(@RequestParam(required = false, defaultValue = "") String jwt) {
+        try {
             return "vaild";
-        }catch (Exception e){
+        } catch (Exception e) {
             return e.getMessage();
         }
     }
 
     @GetMapping("/invalidToken")
-    public String invalidToken(){
+    public String invalidToken() {
         return "invalidToken";
     }
 }

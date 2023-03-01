@@ -9,11 +9,11 @@ import site.heeseong.jwt.interceptor.TokenCheckInterceptor;
 @Configuration
 public class CustomWebMvcConfigurer extends WebMvcConfigurationSupport {
 
-	@Override
-	protected void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new TokenCheckInterceptor())
-				.addPathPatterns("/**")
-				.excludePathPatterns("/invalidToken")
-				;
-	}
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new TokenCheckInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/invalidToken")
+        ;
+    }
 }

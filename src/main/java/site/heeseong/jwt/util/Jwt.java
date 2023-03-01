@@ -16,7 +16,7 @@ public class Jwt {
         return createToken();
     }
 
-    static public String createToken(){
+    static public String createToken() {
         //토큰 구조
         //header.payload.signature
 
@@ -50,10 +50,10 @@ public class Jwt {
         return jwt;
     }
 
-    static private Map<String, String> dummyData(){
+    static private Map<String, String> dummyData() {
         Map<String, String> dummyData = new HashMap<>();
-        dummyData.put("userId","hhsung0120");
-        dummyData.put("userName","한희성");
+        dummyData.put("userId", "hhsung0120");
+        dummyData.put("userName", "한희성");
 
         return dummyData;
     }
@@ -69,7 +69,7 @@ public class Jwt {
         System.out.println(claimsData);
         System.out.println(claimsData.get("sub"));
         System.out.println(claimsData.get("data"));
-        Map<String, Object> data = (Map<String,Object>)claimsData.get("data");
+        Map<String, Object> data = (Map<String, Object>) claimsData.get("data");
         System.out.println(data.get("userName"));
 
         return claimsData;

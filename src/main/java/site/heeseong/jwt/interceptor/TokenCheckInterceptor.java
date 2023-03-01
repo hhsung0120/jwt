@@ -13,10 +13,10 @@ public class TokenCheckInterceptor implements AsyncHandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String jwt = request.getHeader("jwt");
         System.out.println("요청으로 들어온 토큰 => " + jwt);
-        if(jwt != null && !"".equals(jwt)){
-            try{
+        if (jwt != null && !"".equals(jwt)) {
+            try {
                 Jwt.verification(jwt);
-            }catch (Exception e){
+            } catch (Exception e) {
                 response.sendRedirect("/invalidToken");
             }
         }
